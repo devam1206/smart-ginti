@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Load environment variables
 load_dotenv()
@@ -122,6 +123,7 @@ def open_file():
 
 # Flask Setup
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/process-video', methods=['POST'])
 def process_video_endpoint():
@@ -152,4 +154,5 @@ def process_video_endpoint():
         os.remove(file_path)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)

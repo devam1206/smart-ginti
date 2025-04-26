@@ -3,3 +3,6 @@ ultralytics
 pandas
 matplotlib
 flask
+flask-cors
+python-dotenv
+gunicorn

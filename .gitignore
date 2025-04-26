@@ -27,4 +27,3 @@ backend/sg
 
 # Environment variables
 backend/.env
-.env
