@@ -51,6 +51,7 @@ function App() {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        timeout: 300000 // 5 minute timeout
       })
       setAttendance(response.data)
     } catch (err) {

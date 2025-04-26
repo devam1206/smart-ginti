@@ -124,10 +124,11 @@ def open_file():
 # Flask Setup
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB limit
-CORS(app, origins=[
-    "http://localhost:5173",
-    "https://smart-ginti.vercel.app"  # Add your Vercel domain
-])
+CORS(app, origins=["*"], methods=["GET", "POST", "OPTIONS"])
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({"status": "healthy"}), 200
 
 @app.route('/process-video', methods=['POST'])
 def process_video_endpoint():
