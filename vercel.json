@@ -1,8 +1,18 @@
 {
-  "serverFiles": ["api/**/*"],
   "functions": {
-    "api/**/*": {
+    "api/*": {
+      "memory": 3008,
       "maxDuration": 300
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "methods": ["POST", "GET", "PUT", "DELETE", "PATCH", "OPTIONS"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }
+  ]
 }
