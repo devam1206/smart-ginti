@@ -1,18 +1,8 @@
 {
-  "functions": {
-    "api/*": {
-      "memory": 3008,
-      "maxDuration": 300
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "methods": ["POST", "GET", "PUT", "DELETE", "PATCH", "OPTIONS"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*"
-      }
+      "source": "/api/:path*",
+      "destination": "https://smart-ginti-backend.onrender.com/:path*"
     }
   ]
 }
