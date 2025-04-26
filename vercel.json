@@ -1,0 +1,8 @@
+{
+  "serverFiles": ["api/**/*"],
+  "functions": {
+    "api/**/*": {
+      "maxDuration": 300
+    }
+  }
+}

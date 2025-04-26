@@ -23,8 +23,16 @@ function App() {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0])
-    setError(null)
+    const selectedFile = e.target.files[0];
+    const maxSize = 100 * 1024 * 1024; // 100MB
+
+    if (selectedFile && selectedFile.size > maxSize) {
+      setError('File size must be less than 100MB');
+      return;
+    }
+
+    setFile(selectedFile);
+    setError(null);
   }
 
   const handleSubmit = async (e) => {
