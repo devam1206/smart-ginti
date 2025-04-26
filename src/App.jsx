@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import axios from 'axios'
 
+const API_URL = import.meta.env.VITE_API_URL
+
 function App() {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -37,7 +39,7 @@ function App() {
 
     try {
       setLoading(true)
-      const response = await axios.post('/api/process-video', formData, {
+      const response = await axios.post(`${API_URL}/process-video`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
