@@ -123,7 +123,10 @@ def open_file():
 
 # Flask Setup
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5173",
+    "https://smart-ginti.vercel.app"  # Add your Vercel domain
+])
 
 @app.route('/process-video', methods=['POST'])
 def process_video_endpoint():
