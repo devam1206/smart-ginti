@@ -8,6 +8,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [attendance, setAttendance] = useState(null)
   const [error, setError] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null)
 
   const parseSummary = (summary) => {
     if (!summary) return [];
@@ -24,13 +25,6 @@ function App() {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    const maxSize = 100 * 1024 * 1024; // 100MB
-
-    if (selectedFile && selectedFile.size > maxSize) {
-      setError('File size must be less than 100MB');
-      return;
-    }
-
     setFile(selectedFile);
     setError(null);
   }
@@ -50,8 +44,7 @@ function App() {
       const response = await axios.post(`${API_URL}/process-video`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-        },
-        timeout: 300000 // 5 minute timeout
+        }
       })
       setAttendance(response.data)
     } catch (err) {
@@ -60,6 +53,12 @@ function App() {
       setLoading(false)
     }
   }
+
+  const handleRowClick = (hour) => {
+    if (attendance?.images?.[hour]) {
+      setSelectedImage(`${API_URL}/images/${attendance.images[hour]}`);
+    }
+  };
 
   return (
     <div className="grid place-items-center min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -107,7 +106,11 @@ function App() {
                     </thead>
                     <tbody>
                       {parseSummary(attendance.summary).map((row, index) => (
-                        <tr key={index} className={index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-700'}>
+                        <tr 
+                          key={index} 
+                          className={`${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-700'} cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600`}
+                          onClick={() => handleRowClick(row.hour.split(' ')[1])}
+                        >
                           <td className="px-4 py-2 text-center text-black dark:text-white border border-black dark:border-gray-600">{row.hour}</td>
                           <td className="px-4 py-2 text-center text-black dark:text-white border border-black dark:border-gray-600">{row.count}</td>
                         </tr>
@@ -116,6 +119,24 @@ function App() {
                   </table>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Image Preview Modal */}
+        {selectedImage && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4" onClick={() => setSelectedImage(null)}>
+            <div className="relative max-w-4xl w-full">
+              <img src={selectedImage} alt="Preview" className="w-full h-auto rounded-lg" />
+              <button 
+                className="absolute top-2 right-2 bg-white rounded-full p-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedImage(null);
+                }}
+              >
+                ✕
+              </button>
             </div>
           </div>
         )}

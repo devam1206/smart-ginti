@@ -1,6 +1,6 @@
-Hour 1: 13 heads detected
-Hour 2: 0 heads detected
-Hour 3: 0 heads detected
+Hour 1: 34 heads detected
+Hour 2: 27 heads detected
+Hour 3: 17 heads detected
 Hour 4: 0 heads detected
 Hour 5: 0 heads detected
 Hour 6: 0 heads detected
