@@ -1,15 +1,15 @@
 import tkinter as tk
 from tkinter import filedialog
-import cv2
+import cv2 # type: ignore
 import os
-from dotenv import load_dotenv
-import requests
+from dotenv import load_dotenv # type: ignore
+import requests # type: ignore
 import io
-import numpy as np
-import matplotlib.pyplot as plt
-from PIL import Image
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
+import numpy as np # type: ignore
+import matplotlib.pyplot as plt # type: ignore
+from PIL import Image # type: ignore
+from flask import Flask, request, jsonify, send_from_directory # type: ignore
+from flask_cors import CORS # type: ignore
 
 # Load environment variables
 load_dotenv()
